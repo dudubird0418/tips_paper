@@ -1,0 +1,50 @@
+# ---- Quarto ----
+/.quarto/
+/_site/
+/_freeze/
+*_files/
+*.quarto_ipynb
+/.luarc.json
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.env
+*.egg-info/
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
+.jupyter/
+
+# ---- R ----
+.Rhistory
+.RData
+.Rproj.user/
+.Rapp.history
+*.Rproj
+
+# ---- Editors and IDEs ----
+.vscode/
+.idea/
+.positron/
+*.swp
+*.swo
+*~
+*.save
+
+# ---- macOS ----
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ---- Windows ----
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+**/*.quarto_ipynb
