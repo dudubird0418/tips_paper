@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Bigger Bills, Bigger Tips? The Relationship Between Bill Size and Tip Amount",
+    "section": "",
+    "text": "Tipping is a common part of eating out in the United States, and many diners say they tip a fixed percentage of the bill. This paper asks whether larger restaurant bills are related to larger tips."
+  },
+  {
+    "objectID": "index.html#introduction",
+    "href": "index.html#introduction",
+    "title": "Bigger Bills, Bigger Tips? The Relationship Between Bill Size and Tip Amount",
+    "section": "",
+    "text": "Tipping is a common part of eating out in the United States, and many diners say they tip a fixed percentage of the bill. This paper asks whether larger restaurant bills are related to larger tips."
+  },
+  {
+    "objectID": "index.html#literature-review",
+    "href": "index.html#literature-review",
+    "title": "Bigger Bills, Bigger Tips? The Relationship Between Bill Size and Tip Amount",
+    "section": "Literature Review",
+    "text": "Literature Review\nEtiquette guides have long promoted a “fifteen percent rule,” which implies that tips should rise steadily with the bill (Gratuity 2018). However, some researchers argue that many diners tip out of habit, leaving similar amounts no matter what they spend (Servewell and Plate 2022), so the strength of the link between bill and tip remains an open question."
+  },
+  {
+    "objectID": "index.html#method",
+    "href": "index.html#method",
+    "title": "Bigger Bills, Bigger Tips? The Relationship Between Bill Size and Tip Amount",
+    "section": "Method",
+    "text": "Method\n\nimport pandas as pd\nimport numpy as np\nimport seaborn as sns\nfrom scipy import stats\n\ndf = sns.load_dataset('tips')\ndf[['total_bill', 'tip']].describe()\n\n\n\n\n\n\n\n\ntotal_bill\ntip\n\n\n\n\ncount\n244.000000\n244.000000\n\n\nmean\n19.785943\n2.998279\n\n\nstd\n8.902412\n1.383638\n\n\nmin\n3.070000\n1.000000\n\n\n25%\n13.347500\n2.000000\n\n\n50%\n17.795000\n2.900000\n\n\n75%\n24.127500\n3.562500\n\n\nmax\n50.810000\n10.000000\n\n\n\n\n\n\n\nUsing 244 restaurant bills ranging from $3.07 to $50.81, a Pearson correlation was computed between the total bill and the tip. The null hypothesis is that total bill and tip are not correlated (r = 0), and the alternative hypothesis is that they are correlated (r ≠ 0)."
+  },
+  {
+    "objectID": "index.html#results",
+    "href": "index.html#results",
+    "title": "Bigger Bills, Bigger Tips? The Relationship Between Bill Size and Tip Amount",
+    "section": "Results",
+    "text": "Results\n\ncorr_matrix = df[['total_bill', 'tip']].corr()   # 2 x 2 correlation matrix\nr = corr_matrix.loc['total_bill', 'tip']         # row label, column label\nr_test = stats.pearsonr(df['total_bill'], df['tip'])   # same r, plus a p-value\npval = r_test[1]\np_text = \"p &lt; .001\" if pval &lt; 0.001 else f\"p = {pval:.3f}\"\n\nstrength = \"very strong\" if abs(r) &gt; .8 else \"moderate\" if abs(r) &gt; .4 else \"weak\"\ndirection = \"positive\" if r &gt; 0 else \"negative\"\ncorr_matrix\n\n\n\n\n\n\n\n\ntotal_bill\ntip\n\n\n\n\ntotal_bill\n1.000000\n0.675734\n\n\ntip\n0.675734\n1.000000\n\n\n\n\n\n\n\n\nsns.scatterplot(data=df, x='total_bill', y='tip')\n\n\n\n\n\n\n\n\nTotal bill and tip showed a moderate positive correlation, r(242) = 0.68, p &lt; .001, so we reject the null hypothesis. In this sample, diners with larger bills tended to leave larger tips."
+  },
+  {
+    "objectID": "index.html#discussion",
+    "href": "index.html#discussion",
+    "title": "Bigger Bills, Bigger Tips? The Relationship Between Bill Size and Tip Amount",
+    "section": "Discussion",
+    "text": "Discussion\nThese results support the idea that tips rise with the size of the bill, although the correlation is far from perfect, so habits and other factors also shape how much people tip. Because the data come from a single restaurant and correlation does not establish causation, future research should test whether the pattern holds across restaurants and whether variables such as party size or time of day explain part of it."
+  },
+  {
+    "objectID": "index.html#references",
+    "href": "index.html#references",
+    "title": "Bigger Bills, Bigger Tips? The Relationship Between Bill Size and Tip Amount",
+    "section": "References",
+    "text": "References\n\n\nGratuity, Casey. 2018. The Fifteen Percent Rule: A History of Tipping. Fictional Press.\n\n\nServewell, Riley, and Dana Plate. 2022. “Do Diners Tip by Percentage or by Habit?” Journal of Imaginary Hospitality 7: 101–18."
+  }
+]
