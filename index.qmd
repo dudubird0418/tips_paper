@@ -1,0 +1,61 @@
+---
+title: "Bigger Bills, Bigger Tips? The Relationship Between Bill Size and Tip Amount"
+author: Wenlu Du
+date: today
+abstract: "Using 244 restaurant bills from the seaborn tips dataset, this paper uses a Pearson correlation to examine whether the size of a bill is related to the size of the tip."
+keywords: [tipping, restaurants, correlation]
+execute:
+  echo: true
+bibliography: references.bib
+---
+
+## Introduction
+
+Tipping is a common part of eating out in the United States, and many diners say they tip a fixed percentage of the bill. This paper asks whether larger restaurant bills are related to larger tips.
+
+## Literature Review
+
+Etiquette guides have long promoted a "fifteen percent rule," which implies that tips should rise steadily with the bill [@gratuity2018]. However, some researchers argue that many diners tip out of habit, leaving similar amounts no matter what they spend [@servewell2022], so the strength of the link between bill and tip remains an open question.
+
+## Method
+
+```{python}
+import pandas as pd
+import numpy as np
+import seaborn as sns
+from scipy import stats
+
+df = sns.load_dataset('tips')
+df[['total_bill', 'tip']].describe()
+```
+
+Using `{python} len(df)` restaurant bills ranging from $`{python} f"{df['total_bill'].min():.2f}"` to $`{python} f"{df['total_bill'].max():.2f}"`, a Pearson correlation was computed between the total bill and the tip. The null hypothesis is that total bill and tip are not correlated (r = 0), and the alternative hypothesis is that they are correlated (r ≠ 0).
+
+## Results
+
+```{python}
+corr_matrix = df[['total_bill', 'tip']].corr()   # 2 x 2 correlation matrix
+r = corr_matrix.loc['total_bill', 'tip']         # row label, column label
+r_test = stats.pearsonr(df['total_bill'], df['tip'])   # same r, plus a p-value
+pval = r_test[1]
+p_text = "p < .001" if pval < 0.001 else f"p = {pval:.3f}"
+
+strength = "very strong" if abs(r) > .8 else "moderate" if abs(r) > .4 else "weak"
+direction = "positive" if r > 0 else "negative"
+corr_matrix
+```
+
+```{python}
+sns.scatterplot(data=df, x='total_bill', y='tip')
+```
+
+Total bill and tip showed a `{python} strength` `{python} direction` correlation, r(`{python} len(df) - 2`) = `{python} f"{r:.2f}"`, `{python} p_text`, so we `{python} "reject" if pval < 0.05 else "fail to reject"` the null hypothesis. In this sample, diners with `{python} "larger" if r > 0 else "smaller"` bills tended to leave larger tips.
+
+## Discussion
+
+These results support the idea that tips rise with the size of the bill, although the correlation is far from perfect, so habits and other factors also shape how much people tip. Because the data come from a single restaurant and correlation does not establish causation, future research should test whether the pattern holds across restaurants and whether variables such as party size or time of day explain part of it.
+
+## References
+
+::: {#refs}
+:::
